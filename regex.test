@@ -1,4 +1,216 @@
-@regex_amatch
+@regex_match
 
 "", ""
 "abc", "a"
+"abc", "x", false
+"ab", "abc", false
+"abc", "abc"
+"abc", "^a"
+"abc", "^abc"
+"abc", "^abc$"
+"abc", "^a$", false
+"abc", "^abcd$", false
+
+"abc", "^...$"
+"ab\n", "...", false
+
+"abde", "abc+de", false
+"abcde", "abc+de"
+"abccde", "abc+de"
+"abccd", "abc+de", false
+
+"abde", "abc?de"
+"abcde", "abc?de"
+"abccde", "abc?de", false
+
+"abe", "ab(cd)*ef", false
+"abef", "ab(cd)*ef"
+"abcdef", "ab(cd)*ef"
+"abcdcdcdef", "ab(cd)*ef"
+"abcdcdcde", "ab(cd)*ef", false
+
+"abcx", "(ab*c)*x"
+"abbc", "(ab*c)*"
+"abcabc", "(ab*c)*"
+"acabbbc", "(ab*c)*"
+"abbbcac", "(ab*c)*"
+"acabcabbcx", "(ab*c)*x"
+
+"a", "a|b"
+"b", "a|b"
+"x", "a|b", false
+"", "a|b", false
+
+"a", "a|b|c"
+"b", "a|b|c"
+"c", "a|b|c"
+"x", "a|b|c", false
+"", "a|b|c", false
+
+"a", "a?", "a"
+"a", "a??", ""
+"ab", "a?b"
+"ab", "a??b"
+
+"aaab", "a*", "aaa"
+"aaab", "a*?", ""
+"aaab", "a+?", "a"
+"aaab", "a*b"
+"aaab", "a*?b"
+"aaab", "a+?b"
+
+"AbbA", "(.)(.)\2\1"
+"AbBa", "(.)(.)(?i)\2\1"
+
+"hello\nworld", "^he"
+"hello\nworld", "^wo"
+"hello\nworld", "\Ahe"
+"hello\nworld", "\Awo", false
+
+"hello\nworld world", "ld$"
+"hello\nworld", "lo$"
+"hello\nworld", "ld\Z"
+"hello\nworld", "lo\Z", false
+
+"(+*)", "^(+*)$", false
+"(+*)", "^(?q)(+*)(?-q)$"
+
+"hello", "eLL", false
+"hello", "(?i)eLL"
+"hello", "(?i)eL(?-i)L", false
+
+"foobar", "\<foo"
+"foobar", "\<foo\>", false
+"foo bar", "\<foo\>"
+"foobar", "bar\>"
+"foobar", "\<bar\>", false
+"foo bar", "\<bar\>"
+"foobar", "\<foobar\>"
+"foo bar", "(?i)bar"
+"foo Bar", "(?i)bar"
+"123x", "(?i)[a-z]"
+"123X", "(?i)[a-z]"
+
+"hello", "hello"
+"hello", "^hello$"
+
+"hello\nworld", "^hello$"
+"hello\nworld", "\Ahello"
+"hello\nworld", "\Aworld", false
+"hello\nworld", "world\Z"
+"hello\nworld", "hello\Z", false
+
+"hello\r\nworld", "^hello$"
+"hello\r\nworld", "\Ahello"
+"hello\r\nworld", "\Aworld", false
+"hello\r\nworld", "world\Z"
+"hello\r\nworld", "hello\Z", false
+
+"one_1 two_2\nthree_3", "\<one_1\>"
+"one_1 two_2\nthree_3", "\<two_2\>"
+"one_1 two_2\nthree_3", "\<three_3\>"
+"one_1 two_2\r\nthree_3", "\<two_2\>"
+"one_1 two_2\r\nthree_3", "\<three_3\>"
+"one_1 two_2\nthree_3", "\<one\>", false
+"one_1 two_2\nthree_3", "\<two\>", false
+
+"hello", "fred", false
+"hello", "h.*o"
+"hello", "[a-z]ello"
+"hello", "[^0-9]ello"
+"hello", "ell"
+"hello", "^ell", false
+"hello", "ell$", false
+"heeeeeeeello", "^he+llo$"
+"heeeeeeeello", "^he*llo*"
+"hllo", "^he*llo$"
+"hllo", "^he?llo$"
+"hello", "^he?llo$"
+"heello", "^he?llo$", false
+"+123.456", "^[+-][0-9]+[.][0123456789]*$"
+
+"0123456789", "^\d+$"
+"0123456789", "\D", false
+"hello_123", "^\w+$"
+"hello_123", "\W", false
+"hello \t\r\nworld", "^\w+\s+\w+$"
+"!@#@!# \r\t{},()[];", "^\W+$"
+"123adjf!@#", "^\S+$"
+"123adjf!@#", "\s", false
+
+"()[]", "^\(\)\[\]$"
+"hello world", "^(hello|howdy) (\w+)$"
+"ab", "(a|ab)b" // alternation backtrack
+"abc", "x*c"
+"abc", "x*$"
+"abc", "x?$"
+"abc", "^x?"
+"abc", "^x*"
+"aBcD", "abcd", false
+"aBcD", "(?i)abcd"
+"aBCd", "a(?i)bc(?-i)d"
+"aBCD", "a(?i)bc(?-i)D"
+"ABCD", "a(?i)bc(?-i)d", false
+"abc", "a.c"
+"a.c", "(?q)a.c"
+"abc", "(?q)a.c", false
+"a.cd", "(?q)a.c(?-q)."
+"abcd", "(?q)a.c(?-q).", false
+"abc", "(?q)(", false
+"ABC", "(?i)[A-Z]"
+"ABC", "(?i)[a-z]"
+"abc", "(?i)[A-Z]"
+"abc", "(?i)[a-z]"
+
+"a", "[abc]"
+"b", "[abc]"
+"c", "[abc]"
+"b", "[^abc]", false
+"x", "[^abc]"
+
+"c", "\w"
+" ", "\W"
+" ", "\w", false
+" ", "\s"
+"c", "\S"
+"c", "\s", false
+
+"c", "[\w]"
+" ", "[\W]"
+" ", "[\w]", false
+" ", "[\s]"
+"c", "[\S]"
+"c", "[\s]", false
+
+"b", "[[:alpha:]]"
+"b", "[[:alnum:]]"
+"b", "[[:print:]]"
+"b", "[[:graph:]]"
+"b", "[[:lower:]]"
+"b", "[[:upper:]]", false
+"B", "[[:upper:]]"
+"5", "[[:digit:]]"
+"5", "[[:alnum:]]"
+"5", "[[:alpha:]]", false
+"5", "[[:lower:]]", false
+"5", "[[:upper:]]", false
+
+"aBc", "[aBc]+"
+"aBc", "(?i)[ABC]+"
+"ABC", "(?i)ABC"
+"ABC", "(?i)abc"
+"abc", "(?i)ABC"
+"abc", "(?i)abc"
+"abc", "(?i)ark", false
+
+"axb", "[\x00-\xff]+", "axb"
+
+"m", "[a-z]"
+"-", "[-z]"
+"m", "[-z]", false
+"-", "[a-]"
+"m", "[a-]", false
+
+"foo123", "([a-z]+)([0-9]+)", "foo123", "foo", "123"
+"hello there world", "(\w+ )+", "hello there ", "there "
+"hello world", "hello(x?)", "hello"
