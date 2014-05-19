@@ -1,0 +1,10 @@
+@ptest
+
+"", ""
+123		123
+"abc", "abc"
+
+`foo
+bar`,
+`foo
+bar`
