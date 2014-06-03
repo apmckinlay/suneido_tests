@@ -99,3 +99,9 @@ case x < 3: return -1
 case x == 3: return 0
 case x > 3: return +1
 }", 1
+
+"x = 4
+switch x {
+case 3: return 0
+default: return 1
+}", 1
