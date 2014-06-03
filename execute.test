@@ -1,0 +1,101 @@
+@execute
+
+123, 123
+"return 123", 123
+"123 + 456", 579
+"'hello' $ ' ' $ 'world'", "'hello world'"
+"1 + 2 * 3", "7"
+"a = 2; -a", "-2"
+"a = true; not a", false
+"x = 123; y = 456; x + y", 579
+
+"1000 is 1e3"
+"1e3 is 1000"
+"10e3 is 1e4"
+
+"a = 0; ++a", 1
+"a = 0; a++", 0
+"a = 0; a++; a", 1
+"a = 0; --a", -1
+"a = 0; a--", 0
+"a = 0; a--; a", -1
+
+"Suneido.a = 0; ++Suneido.a", 1
+"Suneido.a = 0; Suneido.a++", 0
+"Suneido.a = 0; Suneido.a++; Suneido.a", 1
+"Suneido.a = 0; --Suneido.a", -1
+"Suneido.a = 0; Suneido.a--", 0
+"Suneido.a = 0; Suneido.a--; Suneido.a", -1
+
+"Suneido[0] = 0; ++Suneido[0]", 1
+"Suneido[0] = 0; Suneido[0]++", 0
+"Suneido[0] = 0; Suneido[0]++; Suneido[0]", 1
+"Suneido[0] = 0; --Suneido[0]", -1
+"Suneido[0] = 0; Suneido[0]--", "0"
+"Suneido[0] = 0; Suneido[0]--; Suneido[0]", -1
+
+"2 < 3"
+"3 < 2", false
+"2 < 2", false
+"1.1 < 1.2"
+"1.2 < 1.1", false
+//"#(.5) < #(99)"
+//"#(99) < #(.5)", false
+
+"2 <= 3"
+"3 <= 2", false
+"2 <= 2"
+
+"2 > 3", false
+"3 > 2"
+"2 > 2", false
+
+"2 >= 3", false
+"3 >= 2"
+"2 >= 2"
+
+"s = 1; s $= 2", "'12'"
+"n = 10; n -= 5", 5
+
+"t = true; f = false; t and t", true
+"t = true; f = false; t and f", false
+"t = true; f = false; f and t", false
+"t = true; f = false; f and f", false
+"t = true; f = false; t or t", true
+"t = true; f = false; t or f", true
+"t = true; f = false; f or t", true
+"t = true; f = false; f or f", false
+
+"x = true; x ? 1 : 2", 1
+"x = false; x ? 1 : 2", 2
+
+"0 in (1,2,3)", false
+"1 in (1,2,3)", true
+"2 in (1,2,3)", true
+"3 in (1,2,3)", true
+
+"i = 0; while i < 4 { ++i } i", 4
+
+"x = 4; if x > 3 { return 1 } else { return -1 }", 1
+"x = 2; if x > 3 { return 1 } else { return -1 }", -1
+
+"x = 2
+switch {
+case x < 3: return -1
+case x == 3: return 0
+case x > 3: return +1
+}", -1
+
+"x = 3
+switch {
+case x < 3: return -1
+case x == 3: return 0
+case x > 3: return +1
+}", 0
+
+"x = 4
+switch {
+case x < 3: return -1
+case x == 3: return 0
+case x > 3: return +1
+}", 1
