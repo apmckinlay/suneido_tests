@@ -1,0 +1,28 @@
+@tr_replace
+
+"", "", "", ""
+"", "abc", "ABC", ""
+"", "^abc", "x", ""
+
+"abc", "", "", "abc"
+"abc", "xyz", "", "abc"
+"zon", "xyz", "", "on"
+"oyn", "xyz", "", "on"
+"nox", "xyz", "", "no"
+"zyx", "xyz", "", ""
+
+"zon", "xyz", "XYZ", "Zon"
+"oyn", "xyz", "XYZ", "oYn"
+"nox", "xyz", "XYZ", "noX"
+"zyx", "xyz", "XYZ", "ZYX"
+"zyx", "a-z", "A-Z", "ZYX"
+
+"a b - c", "^abc", "", "abc"		// allbut delete
+"a b - c", "^a-z", "", "abc"		// allbut delete
+"a  b - c", "^abc", " ", "a b c"	// allbut collapse
+"a  b - c", "^a-z", " ", "a b c"	// allbut collapse
+"a-b-c", "-x", "", "abc"			// literal dash
+"a-b-c", "x-", "", "abc"			// literal dash
+
+// collapse at end
+"hello \t\n\n", " \t\n", "\n", "hello\n"
