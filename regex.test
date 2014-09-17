@@ -56,10 +56,11 @@
 
 "aaab", "a*", "aaa"
 "aaab", "a*?", ""
+"aaab", "a+", "aaa"
 "aaab", "a+?", "a"
-"aaab", "a*b"
-"aaab", "a*?b"
-"aaab", "a+?b"
+"aaab", "a*b", "aaab"
+"aaab", "a*?b", "aaab"
+"aaab", "a+?b", "aaab"
 
 "AbbA", "(.)(.)\2\1"
 "AbBa", "(.)(.)(?i)\2\1"
