@@ -1,0 +1,31 @@
+@lang_sub // test string.Substr, object.Slice, [i ::], [i :: n], and [i ..]
+
+"", 0, ""
+"", 9, ""
+"", -9, ""
+
+"hello world", 0, "hello world"
+"hello world", -99, "hello world"
+"hello world", 6, "world"
+"hello world", -5, "world"
+"hello world", 99, ""
+
+"hello world", 0, 0, ""
+"hello world", 0, 4, "hell"
+"hello world", 3, 2, "lo"
+
+@lang_range // test [..]
+
+"hello world", 0, 0, ""
+"hello world", 0, 5, "hello"
+"hello world", -99, 5, "hello"
+"hello world", 0, 99, "hello world"
+"hello world", 0, -99, ""
+"hello world", 6, 0, ""
+"hello world", 6, 5, ""
+"hello world", 6, 11, "world"
+"hello world", 6, 99, "world"
+"hello world", 6, -5, ""
+"hello world", -5, 99, "world"
+"hello world", -99, 99, "hello world"
+"hello world", -11, -6, "hello"

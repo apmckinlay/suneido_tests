@@ -1,0 +1,72 @@
+@lang
+
+`// class without base
+class { }`
+
+`// class with base
+c = class : Test { }
+c = Test { }`
+
+`// Type of class
+c = class { }
+Type(c) is "Class"`
+
+`// class equality is identity
+c = class { }
+c is c and c isnt class { }`
+
+`// class members()
+c = class { M: 123 }
+c.M is 123`
+
+`// classes are readonly()
+c = class { }
+c.Mem = 123`,
+	"readonly|does not support put"
+
+`// class methods()
+c = class { F() { 123 } }
+c.F() is 123`
+
+`// class members()
+c = class { M: 123, F() { } }
+c.Members().Sort() is #(F, M)`
+
+`// instance
+c = class { }
+new c`
+
+`// instance type()
+c = class { }
+i = new c
+Type(i) is 'Object'`
+
+`// instances inherit from class()
+c = class { M: 123 }
+i = new c
+i.M is 123`
+
+`// memberq includes inherited()
+c = class { M: 123 }
+i = new c
+i.Member?('M')`
+
+`// method lookup starts in class()
+c = class { F() { 123 } }
+i = new c
+i.F = 'foo'
+c.F() is 123`
+
+`// instance equality is value()
+c = class { }
+new c is new c`
+
+`// default CallClass is new()
+c = class { }
+c() is new c`
+
+`// instances are modifiable()
+c = class { }
+i = new c
+i.Mem = 123
+i.Mem is 123`
