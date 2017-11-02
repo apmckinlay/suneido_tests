@@ -109,7 +109,7 @@ case 3: return 0
 default: return 1
 }", 1
 
-// test only "" and false should convert to number or integer
+// only "" and false should convert to number or integer
 
 // convert to number
 "x = 123; y = 111; x + y", 234
@@ -118,7 +118,7 @@ default: return 1
 "x = 123; y = '111'; x + y" throws "can't convert String to number"
 // convert to integer
 "x = 123; y = false; x + y", 123
-"x = 0xff; y = 0xf; x & y", 0xf 
+"x = 0xff; y = 0xf; x & y", 0xf
 "x = 0xff; y = true; x & y" throws "can't convert true to number"
 "x = 0xff; y = '1'; x & y" throws "can't convert String to number"
 
@@ -126,3 +126,31 @@ default: return 1
 "s = 'hello'; s['']" throws "string subscripts must be integers"
 "s = 'hello'; s[false]" throws "string subscripts must be integers"
 
+// Type
+"Type(true)", "'Boolean'"
+"Type('foo')", "'String'"
+"Type(123)", "'Number'"
+"Type(function () { })", "'Function'"
+"Type(class { })", "'Class'"
+"Type(Pack)", "'BuiltinFunction'"
+"Type(Date)", "'BuiltinClass'"
+"Type(Date())", "'Date'"
+"Type(Adler32)", "'BuiltinClass'"
+"Type(Adler32())", "'Adler32'"
+"Type(Md5)", "'BuiltinClass'"
+"Type(Md5())", "'Md5'"
+"Type(Seq)", "'BuiltinFunction'"
+"Type(Seq())", "'Object'"
+
+// Display
+"Display(Pack)", "'Pack /* builtin function */'"
+"Display(Seq)", "'Seq /* builtin function */'"
+"Display(Seq())", "'infiniteSequence'"
+"Display(Date)", "'Date /* builtin class */'"
+"Display(Thread)", "'Thread /* builtin class */'"
+"Display(Adler32)", "'Adler32 /* builtin class */'"
+"Display(Md5)", "'Md5 /* builtin class */'"
+"Display(Adler32())", "'aAdler32'"
+"Display(Md5())", "'aMd5'"
+
+// Note: Adler32 and Md5 are implemented differently in jSuneido
