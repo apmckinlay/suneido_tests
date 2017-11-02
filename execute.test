@@ -34,28 +34,28 @@
 "Suneido[0] = 0; Suneido[0]--", "0"
 "Suneido[0] = 0; Suneido[0]--; Suneido[0]", -1
 
-"2 < 3"
+"2 < 3", true
 "3 < 2", false
 "2 < 2", false
-"1.1 < 1.2"
+"1.1 < 1.2", true
 "1.2 < 1.1", false
-//"#(.5) < #(99)"
+//"#(.5) < #(99)", true
 //"#(99) < #(.5)", false
 
-"2 <= 3"
+"2 <= 3", true
 "3 <= 2", false
-"2 <= 2"
+"2 <= 2", true
 
 "2 > 3", false
-"3 > 2"
+"3 > 2", true
 "2 > 2", false
 
 "2 >= 3", false
-"3 >= 2"
-"2 >= 2"
+"3 >= 2", true
+"2 >= 2", true
 
-"'abc' =~ '^[a-c]+$'"
-"'abcx' !~ '^[a-c]+$'"
+"'abc' =~ '^[a-c]+$'", true
+"'abcx' !~ '^[a-c]+$'", true
 
 "s = 1; s $= 2", "'12'"
 "n = 10; n -= 5", 5
@@ -108,3 +108,21 @@ switch x {
 case 3: return 0
 default: return 1
 }", 1
+
+// test only "" and false should convert to number or integer
+
+// convert to number
+"x = 123; y = 111; x + y", 234
+"x = 123; y = ''; x + y", 123
+"x = 123; y = true; x + y" throws "can't convert true to number"
+"x = 123; y = '111'; x + y" throws "can't convert String to number"
+// convert to integer
+"x = 123; y = false; x + y", 123
+"x = 0xff; y = 0xf; x & y", 0xf 
+"x = 0xff; y = true; x & y" throws "can't convert true to number"
+"x = 0xff; y = '1'; x & y" throws "can't convert String to number"
+
+"s = 'hello'; s[1.2]" throws "string subscripts must be integers"
+"s = 'hello'; s['']" throws "string subscripts must be integers"
+"s = 'hello'; s[false]" throws "string subscripts must be integers"
+

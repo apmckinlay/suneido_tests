@@ -1,4 +1,4 @@
-@lang
+@execute
 
 `// class without base
 class { }`
@@ -22,7 +22,7 @@ c.M is 123`
 `// classes are readonly()
 c = class { }
 c.Mem = 123`,
-	"readonly|does not support put"
+	throws ""
 
 `// class methods()
 c = class { F() { 123 } }
