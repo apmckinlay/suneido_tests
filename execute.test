@@ -125,32 +125,3 @@ default: return 1
 "s = 'hello'; s[1.2]" throws "string subscripts must be integers"
 "s = 'hello'; s['']" throws "string subscripts must be integers"
 "s = 'hello'; s[false]" throws "string subscripts must be integers"
-
-// Type
-"Type(true)", "'Boolean'"
-"Type('foo')", "'String'"
-"Type(123)", "'Number'"
-"Type(function () { })", "'Function'"
-"Type(class { })", "'Class'"
-"Type(Pack)", "'BuiltinFunction'"
-"Type(Date)", "'BuiltinClass'"
-"Type(Date())", "'Date'"
-"Type(Adler32)", "'BuiltinClass'"
-"Type(Adler32())", "'Adler32'"
-"Type(Md5)", "'BuiltinClass'"
-"Type(Md5())", "'Md5'"
-"Type(Seq)", "'BuiltinFunction'"
-"Type(Seq())", "'Object'"
-
-// Display
-"Display(Pack)", "'Pack /* builtin function */'"
-"Display(Seq)", "'Seq /* builtin function */'"
-"Display(Seq())", "'infiniteSequence'"
-"Display(Date)", "'Date /* builtin class */'"
-"Display(Thread)", "'Thread /* builtin class */'"
-"Display(Adler32)", "'Adler32 /* builtin class */'"
-"Display(Md5)", "'Md5 /* builtin class */'"
-"Display(Adler32())", "'aAdler32'"
-"Display(Md5())", "'aMd5'"
-
-// Note: Adler32 and Md5 are implemented differently in jSuneido

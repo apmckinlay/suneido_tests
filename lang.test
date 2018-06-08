@@ -1,4 +1,4 @@
-@lang_sub // test string.Substr, object.Slice, [i ::], [i :: n], and [i ..]
+@lang_sub
 
 "", 0, ""
 "", 9, ""
@@ -14,7 +14,7 @@
 "hello world", 0, 4, "hell"
 "hello world", 3, 2, "lo"
 
-@lang_range // test [..]
+@lang_range
 
 "hello world", 0, 0, ""
 "hello world", 0, 5, "hello"
@@ -29,3 +29,11 @@
 "hello world", -5, 99, "world"
 "hello world", -99, 99, "hello world"
 "hello world", -11, -6, "hello"
+
+@compare
+false, true,
+-1e99, -123, -.1, 0, .1, 123, 1e99,
+'""', '"bar"', '"foo"', '"foobar"',
+'#20000101', '#20000102', '#20000201', '#20010101',
+'#()', '#{1}', '#(2)', '#{3,3}', '#(3,4)',
+'function () {}'

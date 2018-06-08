@@ -1,4 +1,4 @@
-@execute
+@execute // class implementation
 
 `// class without base
 class { }`
@@ -39,7 +39,7 @@ new c`
 `// instance type()
 c = class { }
 i = new c
-Type(i) is 'Object'`
+Type(i) is 'Instance'`
 
 `// instances inherit from class()
 c = class { M: 123 }

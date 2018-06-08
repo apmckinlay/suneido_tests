@@ -1,4 +1,4 @@
-@constant
+@compile
 'true', Boolean, 'true'
 'false', Boolean, 'false'
 '0', Number, '0'
