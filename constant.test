@@ -8,3 +8,12 @@
 '123.', Number, '123'
 '+true', Exception, 'syntax error'
 '-false', Exception, 'syntax error'
+0xff, Number, 255
+0xffffffff, Number, -1
+.001, Number, .001
+0.001, Number, .001
+1e-3, Number, .001
+.1e-2, Number, .001
+100000000000000000000, Number, 1e20
+.00000000000000000001, Number, 1e-20
+0.00000000000000000001, Number, 1e-20

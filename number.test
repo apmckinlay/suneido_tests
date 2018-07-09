@@ -128,5 +128,8 @@
 255			Hex		'ff'
 32768		Hex		'8000'
 65535		Hex		'ffff'
+-1			Hex		'ffffffff'
 4294967295	Hex		'ffffffff'
+0xffffffff	Hex		'ffffffff'
 2864434397	Hex		'aabbccdd'
+0x80000000	Hex		'80000000'

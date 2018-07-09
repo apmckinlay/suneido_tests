@@ -12,6 +12,7 @@
 "1000 is 1e3"
 "1e3 is 1000"
 "10e3 is 1e4"
+".001 is 0.001"
 
 "a = 0; ++a", 1
 "a = 0; a++", 0
@@ -125,3 +126,13 @@ default: return 1
 "s = 'hello'; s[1.2]" throws "string subscripts must be integers"
 "s = 'hello'; s['']" throws "string subscripts must be integers"
 "s = 'hello'; s[false]" throws "string subscripts must be integers"
+
+@execute // argument handling
+"Object().Add(@Seq(1000)).Size()", 1000 //  // Add(@ shouldn't expand onto stack
+
+"Type(ServerEval('Thread.List'))", 'Object' // ServerEval does @+1 args
+"Type(ServerEval(@#('Thread.List')))", 'Object'
+"Type(ServerEval(@+1#(123, 'Thread.List')))", 'Object'
+
+"Object(a: 123).Eval(function (x) { x * .a }, 10)", 1230
+"Object(a: 123).Eval(@#(function (x) { x * .a }, 10))", 1230
