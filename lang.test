@@ -13,6 +13,8 @@
 "hello world", 0, 0, ""
 "hello world", 0, 4, "hell"
 "hello world", 3, 2, "lo"
+"hello world", 0, -5, "" // NOT end relative
+"hello world", 2, -2, "" // NOT end relative
 
 @lang_range
 
