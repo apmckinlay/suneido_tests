@@ -75,7 +75,7 @@ Compares each value to all of the following values, both ways.
 
 - string, pos [, len], expected
 
-Test string.Substr, object.Slice, [i ::], [i :: n], and [i ..] on strings and objects
+Test [i ::], [i :: n], and [i ..] on strings and objects
 
 `@lang_range`
 
