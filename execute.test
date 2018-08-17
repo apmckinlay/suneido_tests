@@ -123,9 +123,15 @@ default: return 1
 "x = 0xff; y = true; x & y" throws "can't convert true to number"
 "x = 0xff; y = '1'; x & y" throws "can't convert String to number"
 
-"s = 'hello'; s[1.2]" throws "string subscripts must be integers"
-"s = 'hello'; s['']" throws "string subscripts must be integers"
-"s = 'hello'; s[false]" throws "string subscripts must be integers"
+"s = 'hello'; s[1.2]" throws "indexes must be integers"
+"s = 'hello'; s['']" throws "indexes must be integers"
+"s = 'hello'; s[false]" throws "indexes must be integers"
+"s = 'hello'; s['' ..]" throws "indexes must be integers"
+"s = 'hello'; s[false ..]" throws "indexes must be integers"
+"s = 'hello'; s['' ::]" throws "indexes must be integers"
+"s = 'hello'; s[false ::]" throws "indexes must be integers"
+"x = #(); x['' ::]" throws "indexes must be integers"
+"x = #(); x[false ::]" throws "indexes must be integers"
 
 @execute // argument handling
 "Object().Add(@Seq(1000)).Size()", 1000 //  // Add(@ shouldn't expand onto stack
