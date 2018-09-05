@@ -1,4 +1,4 @@
-@lang_sub
+@lang_rangelen
 
 "", 0, ""
 "", 9, ""
@@ -16,7 +16,7 @@
 "hello world", 0, -5, "" // NOT end relative
 "hello world", 2, -2, "" // NOT end relative
 
-@lang_range
+@lang_rangeto
 
 "hello world", 0, 0, ""
 "hello world", 0, 5, "hello"
