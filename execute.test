@@ -35,11 +35,20 @@
 "Suneido[0] = 0; Suneido[0]--", "0"
 "Suneido[0] = 0; Suneido[0]--; Suneido[0]", -1
 
+// integer
 "2 < 3", true
 "3 < 2", false
 "2 < 2", false
+
+// dnum
 "1.1 < 1.2", true
 "1.2 < 1.1", false
+
+// integer & dnum
+".5 < 99", true
+"99 < .5", false
+
+// object
 "#(.5) < #(99)", true
 "#(99) < #(.5)", false
 
@@ -54,6 +63,12 @@
 "2 >= 3", false
 "3 >= 2", true
 "2 >= 2", true
+
+// string
+"'' < 'a'", true
+"'a' < 'b'", true
+"'ab' < 'abc'", true
+"'aba' < 'abc'", true
 
 "'abc' =~ '^[a-c]+$'", true
 "'abcx' !~ '^[a-c]+$'", true
@@ -121,6 +136,10 @@ default: return 1
 "x=#(1,2,3); x[2]", 3
 "x=#(1,2,3); x[3]" throws "uninitialized member: 3"
 "x=#(1,2,3); x[-1]" throws "uninitialized member: -1"
+
+// int vs dnum index
+"Suneido[1]=123; Suneido[.5 + .5]", 123
+"Suneido[1.5 + .5]=456; Suneido[2]", 456
 
 // only "" and false should convert to number or integer
 
