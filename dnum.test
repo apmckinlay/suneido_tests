@@ -85,6 +85,7 @@ inf, inf, inf
 // special cases (no actual math)
 0, 0, 0
 123, 0, inf
+-123, 0, -inf
 123, inf, 0
 inf, 123, inf
 inf, inf, 1
