@@ -101,21 +101,21 @@
 "x = 2
 switch {
 case x < 3: return -1
-case x == 3: return 0
+case x is 3: return 0
 case x > 3: return +1
 }", -1
 
 "x = 3
 switch {
 case x < 3: return -1
-case x == 3: return 0
+case x is 3: return 0
 case x > 3: return +1
 }", 0
 
 "x = 4
 switch {
 case x < 3: return -1
-case x == 3: return 0
+case x is 3: return 0
 case x > 3: return +1
 }", 1
 
