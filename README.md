@@ -35,6 +35,11 @@ Fixtures
 `@compile`
 
 - string, expected_type, expected_value
+- string, throws "exception substring"
+
+Classes should have their content shown sorted by member. 
+
+Functions should have their parameters shown
 
 `@method` // call a method
 
@@ -43,6 +48,7 @@ Fixtures
 `@execute` // compile and run
 
 - string, expected
+- string, `"**notfalse**"`
 - string, throws "exception substring"
 
 `@tr`

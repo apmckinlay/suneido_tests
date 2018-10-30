@@ -178,15 +178,21 @@ default: return 1
 "x = #(); x['' ::]" throws "indexes must be integers"
 "x = #(); x[false ::]" throws "indexes must be integers"
 
+"x = Object(1,2,3); x[0::2]", "#(1,2)"
+"x = Object(3); x[0::1][0] = 9; x", "#(3)"
+
 @execute // argument handling
 "Object().Add(@Seq(1000)).Size()", 1000 //  // Add(@ shouldn't expand onto stack
 
-"Type(ServerEval('Thread.List'))", 'Object' // ServerEval does @+1 args
-"Type(ServerEval(@#('Thread.List')))", 'Object'
-"Type(ServerEval(@+1#(123, 'Thread.List')))", 'Object'
-
 "Object(a: 123).Eval(function (x) { x * .a }, 10)", 1230
 "Object(a: 123).Eval(@#(function (x) { x * .a }, 10))", 1230
+
+"Object(a: 1, a: 2)" throws "duplicate argument name"
+
+"a=1; Object(:a)", "#(a: 1)"
+
+"a=1; Object([:a])", "#((a: 1))"
+"b=1; Object(a: [:b])", "#(a: [b: 1])"
 
 @execute // unary plus and minus conversions
 // fold

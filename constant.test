@@ -6,8 +6,8 @@
 '-123', Number, '-123'
 '+123', Number, '123'
 '123.', Number, '123'
-'+true', Exception, 'syntax error'
-'-false', Exception, 'syntax error'
+'+true', throws 'syntax error'
+'-false', throws 'syntax error'
 0xff, Number, 255
 0xffffffff, Number, -1
 .001, Number, .001
@@ -17,3 +17,64 @@
 100000000000000000000, Number, 1e20
 .00000000000000000001, Number, 1e-20
 0.00000000000000000001, Number, 1e-20
+'#20181023', Date, '#20181023'
+
+@compile // object
+'()', Object, '#()'
+'{}', Record, '[]'
+'[]', Record, '[]'
+'#()', Object, '#()'
+'#{}', Record, '[]'
+'#[]', Record, '[]'
+'#(123)', Object, '#(123)'
+'#(+123)', Object, '#(123)'
+'#(-123)', Object, '#(-123)'
+'#(12, 34)', Object, '#(12, 34)'
+'#(a)', Object, '#("a")'
+'#(a:)', Object, '#(a:)'
+'#(a: 123)', Object, '#(a: 123)'
+'#(1, 2, a: 3, b: 4)', Object, '#(1, 2, a: 3, b: 4)'
+'#(-1: -2, "foo bar": foobar)', Object, '#(-1: -2, "foo bar": "foobar")'
+'#(20181023)', Object, '#(20181023)'
+'#(20181023:)', Object, '#(20181023:)'
+'#(20181023: false)', Object, '#(20181023: false)'
+'#(#20181023)', Object, '#(#20181023)'
+'#(#20181023:)', Object, '#(#20181023:)'
+'#(#20181023: 123)', Object, '#(#20181023: 123)'
+'#(is)', Object, '#("is")'
+'#(is: 123)', Object, '#(is: 123)'
+'#(true: 123)', Object, '#(true: 123)'
+'#("true": 123)', Object, '#("true": 123)'
+'#(class: 123)', Object, '#(class: 123)'
+'#(function: 123)', Object, '#(function: 123)'
+'#(default: 123)', Object, '#(default: 123)'
+'#(function(){})', Object, '#(/* function */)'
+'#(class{})', Object, '#(/* class */)'
+'#(flag:)', Object, '#(flag:)'
+'#(flag: \n )', Object, '#(flag:)'
+
+'#(a: 1, a: 2)' throws 'duplicate member name'
+
+@compile // class
+'class { }', Class, 'class{}'
+'Base { }', Class, 'Base{}'
+'class Base { }', Class, 'Base{}'
+'class : Base { }', Class, 'Base{}'
+
+'class { B: 2 \n A: 1 }', Class, 'class{A: 1; B: 2}'
+'Base { Foo(){} \n Bar(){} }', Class, 'Base{Bar(); Foo()}'
+'class { N: ; Foo: function(){} }', Class, 'class{Foo(); N: true}'
+
+'class { 123 }', throws 'class members must be named'
+'class { 123: 456 }', throws 'class member names must be strings'
+
+@compile // function
+'function () {}', Function, 'function()'
+'function (a,b,c) {}', Function, 'function(a,b,c)'
+'function (@args) {}', Function, 'function(@args)'
+'function (a,b=1,c=2) {}', Function, 'function(a,b=1,c=2)'
+'function (a,_b,_c=false) {}', Function, 'function(a,_b,_c=false)'
+
+'function (a,b=1,c) {}' throws 'default parameters must come last'
+'function (.a) {}' throws 'dot parameters only allowed in class methods'
+'function (a, b, a) {}' throws 'duplicate function parameter'
