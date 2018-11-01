@@ -18,6 +18,10 @@
 .00000000000000000001, Number, 1e-20
 0.00000000000000000001, Number, 1e-20
 '#20181023', Date, '#20181023'
+'#x', String, '"x"'
+'#Foo', String, '"Foo"'
+'#_foo', String, '"_foo"'
+'#_X', String, '"_X"'
 
 @compile // object
 '()', Object, '#()'
