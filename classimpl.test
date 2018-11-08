@@ -70,3 +70,37 @@ c = class { }
 i = new c
 i.Mem = 123
 i.Mem is 123`
+
+@execute // class getter methods
+`// normal member
+c = class { A: 123 }
+c.A is 123 and c().A is 123`
+
+`// public getter
+c = class { Getter_A() { 123 } }
+c.A is 123 and c().A is 123`
+
+`// private getter
+c = class { getter_a() { 123 }; F() { .a } }
+c.F() is 123 and c().F() is 123`
+
+`// invalid getter
+class { getter_() { } }`,
+throws "invalid getter"
+
+`// invalid getter
+class { getter_A() { } }`,
+throws "invalid getter"
+
+`// invalid getter
+class { Getter_a() { } }`,
+throws "invalid getter"
+
+`// invalid explicit getter call
+c = class { getter_a() { 123 }; F() { .getter_a() }}
+c.F()`,
+throws "method not found"
+
+`// general getter
+c = class { Getter_(m) { '(' $ m $ ')' } }
+c.Foo is '(Foo)' and c().Foo is '(Foo)'`
