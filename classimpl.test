@@ -7,6 +7,11 @@ class { }`
 c = class : Test { }
 c = Test { }`
 
+`// comment
+Test
+	{
+	}`
+
 `// Type of class
 c = class { }
 Type(c) is "Class"`

@@ -1,5 +1,4 @@
 @lang_rangelen
-
 "", 0, ""
 "", 9, ""
 "", -9, ""
@@ -17,7 +16,6 @@
 "hello world", 2, -2, "" // NOT end relative
 
 @lang_rangeto
-
 "hello world", 0, 0, ""
 "hello world", 0, 5, "hello"
 "hello world", -99, 5, "hello"

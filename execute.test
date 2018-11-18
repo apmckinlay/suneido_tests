@@ -92,6 +92,10 @@
 "1 in (1,2,3)", true
 "2 in (1,2,3)", true
 "3 in (1,2,3)", true
+"0 not in (1,2,3)", true
+"1 not in (1,2,3)", false
+"2 not in (1,2,3)", false
+"3 not in (1,2,3)", false
 
 "i = 0; while i < 4 { ++i } i", 4
 
