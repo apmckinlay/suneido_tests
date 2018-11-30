@@ -209,3 +209,60 @@ default: return 1
 "x = false; +x", 0
 "x = true; -x" throws "can't convert true to number"
 "x = false; -x", 0
+
+@execute // calls
+
+// different numbers of arguments
+"function(){123}()", 123
+"function(a){a}(123)", 123
+"function(a,b){a+b}(1,2)", 3
+"function(a,b,c){a+b+c}(1,2,3)", 6
+"function(a,b,c,d){a+b+c+d}(1,2,3,4)", 10
+"function(a,b,c,d,e){a+b+c+d+e}(1,2,3,4,5)", 15
+
+// CallClass
+"class{CallClass(){123}}()", 123
+"class{CallClass(a){a}}(123)", 123
+"class{CallClass(a,b){a+b}}(1,2)", 3
+"class{CallClass(a,b,c){a+b+c}}(1,2,3)", 6
+"class{CallClass(a,b,c,d){a+b+c+d}}(1,2,3,4)", 10
+"class{CallClass(a,b,c,d,e){a+b+c+d+e}}(1,2,3,4,5)", 15
+
+// class "static" method
+"class{M(){123}}.M()", 123
+"class{M(a){a}}.M(123)", 123
+"class{M(a,b){a+b}}.M(1,2)", 3
+"class{M(a,b,c){a+b+c}}.M(1,2,3)", 6
+"class{M(a,b,c,d){a+b+c+d}}.M(1,2,3,4)", 10
+"class{M(a,b,c,d,e){a+b+c+d+e}}.M(1,2,3,4,5)", 15
+
+// access to "this"
+"class{X: 123}.X", 123
+"class{M(){.X} X: 123}.M()", 123
+"class{M(){.x} x: 123}.M()", 123
+"class{CallClass(){.x} x: 123}()", 123
+
+// no params
+"function(){123}()", 123
+"function(){123}(a: 1)", 123
+"function(){123}(a: 1, b: 2)", 123
+"function(){123}(@#())", 123
+"function(){123}(@#(a: 1, b: 2))", 123
+"function(){123}(@+1#())", 123
+"function(){123}(@+1#(a: 1, b: 2))", 123
+"function(){123}(1)" throws "too many arguments"
+
+// @param
+"function(@x){x}(123)", "#(123)"
+"function(@x){x}(1,2,3)", "#(1, 2, 3)"
+"function(@x){x}(1,2,a:3,b:4)", "#(1, 2, a: 3, b: 4)"
+
+// some params
+"function(a,b){a+b}()" throws "missing argument"
+"function(a,b){a+b}(1)" throws "missing argument"
+"function(a,b){a+b}(1,2)", 3
+"function(a,b){a+b}(@#(1,2))", 3
+"function(a,b){a+b}(@+1#(1,2,3))", 5
+"function(a,b){a+b}(@#(1,2,x:3,y:4))", 3
+"function(a,b){a+b}(1,2,3)" throws "too many arguments"
+"function(a,b){a+b}(@#(1,2,3))" throws "too many arguments"
