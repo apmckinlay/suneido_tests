@@ -29,13 +29,17 @@ c = class { }
 c.Mem = 123`,
 	throws ""
 
+`// class members()
+c = class { M: 123, F() { } }
+c.Members().Sort!() is #(F, M)`
+
 `// class methods()
 c = class { F() { 123 } }
 c.F() is 123`
 
-`// class members()
-c = class { M: 123, F() { } }
-c.Members().Sort!() is #(F, M)`
+`class { F() { this = 5 }}` throws "super"
+
+`class { F() { super = 5 }}` throws "super"
 
 `// instance
 c = class { }
