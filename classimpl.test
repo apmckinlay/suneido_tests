@@ -20,7 +20,7 @@ Type(c) is "Class"`
 c = class { }
 c is c and c isnt class { }`
 
-`// class members()
+`// class get
 c = class { M: 123 }
 c.M is 123`
 
@@ -35,18 +35,22 @@ c.F() is 123`
 
 `// class members()
 c = class { M: 123, F() { } }
-c.Members().Sort() is #(F, M)`
+c.Members().Sort!() is #(F, M)`
 
 `// instance
 c = class { }
 new c`
 
-`// instance type()
+`// can't create instance of instance
+x = class{}()
+new x` throws "can't create instance of instance"
+
+`// Type of instance
 c = class { }
 i = new c
 Type(i) is 'Instance'`
 
-`// instances inherit from class()
+`// instances inherit members
 c = class { M: 123 }
 i = new c
 i.M is 123`
@@ -62,6 +66,19 @@ i = new c
 i.F = 'foo'
 c.F() is 123`
 
+`// classes inherit methods
+Def(#A, class { F() { 123} })
+Def(#B, A { })
+c = B{}
+c.F() is 123`
+
+`// instances inherit methods
+Def(#A, class { F() { 123} })
+Def(#B, A { })
+c = B{}
+x = c()
+x.F() is 123`
+
 `// instance equality is value()
 c = class { }
 new c is new c`
@@ -76,7 +93,51 @@ i = new c
 i.Mem = 123
 i.Mem is 123`
 
+`// New
+c = class { New(x) { .X = x } }
+c(123).X is 123`
+
+`// New is chained
+Def(#A, class { New() { .A = 1 }})
+Def(#B, A { New() { .B = 2 }})
+x = new B{ New() { .C = 3 }}
+x.A is 1 and x.B is 2 and x.C is 3`
+
+`// super requires parent
+class { F() { super.F() }}` throws "super requires parent"
+
+`// super requires parent
+class { New() { super() }}` throws "super requires parent"
+
+`// super(...) must be first
+Def(#A, class { F(x) { x + 1 }})
+A { New() { Other(); super() }}` throws "super(...) must be first"
+
+`// super(...) only valid in New
+Def(#A, class { F(x) { x + 1 }})
+x = new A { F() { super(1) }}` throws "super(...) only valid in New"
+
+`// super New call
+Def(#A, class { New(x){ .X = x }})
+x = new A { New() { super(123) }}
+x.X is 123`
+
+`// super method call
+Def(#A, class { F(x) { x + 1 }})
+x = new A { F() { super.F(1) }}
+x.F() is 2`
+
+`// New with private dot param
+c = class { New(.x) { } F() { .x }}
+c(123).F() is 123`
+
+`// New with public dot param
+c = class { New(.X) { } }
+c(123).X is 123`
+
+/*
 @execute // class getter methods
+
 `// normal member
 c = class { A: 123 }
 c.A is 123 and c().A is 123`
@@ -109,3 +170,4 @@ throws "method not found"
 `// general getter
 c = class { Getter_(m) { '(' $ m $ ')' } }
 c.Foo is '(Foo)' and c().Foo is '(Foo)'`
+*/

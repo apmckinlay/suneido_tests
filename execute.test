@@ -266,3 +266,8 @@ default: return 1
 "function(a,b){a+b}(@#(1,2,x:3,y:4))", 3
 "function(a,b){a+b}(1,2,3)" throws "too many arguments"
 "function(a,b){a+b}(@#(1,2,3))" throws "too many arguments"
+
+// dynamic param defaults
+"_a=1; _b=2; function(_a,_b){[a,b]}()", "[1,2]"
+"_a=1; _b=2; function(_a,_b){[a,b]}(3)", "[3,2]"
+"_a=1; _b=2; function(_a,_b){[a,b]}(3,4)", "[3,4]"
