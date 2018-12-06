@@ -115,11 +115,11 @@ class { New() { super() }}` throws "super requires parent"
 
 `// super(...) must be first
 Def(#A, class { F(x) { x + 1 }})
-A { New() { Other(); super() }}` throws "super(...) must be first"
+A { New() { Other(); super() }}` throws "super"
 
 `// super(...) only valid in New
 Def(#A, class { F(x) { x + 1 }})
-x = new A { F() { super(1) }}` throws "super(...) only valid in New"
+x = new A { F() { super(1) }}` throws "super"
 
 `// super New call
 Def(#A, class { New(x){ .X = x }})
