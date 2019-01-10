@@ -24,6 +24,11 @@ c is c and c isnt class { }`
 c = class { M: 123 }
 c.M is 123`
 
+`// class get inherits
+Def(#A, class { X: 123 })
+c = A { }
+c.X is 123`
+
 `// classes are readonly()
 c = class { }
 c.Mem = 123`,
@@ -35,6 +40,14 @@ c.Members().Sort!() is #(F, M)`
 
 `// class methods()
 c = class { F() { 123 } }
+c.F() is 123`
+
+`// private member
+c = class { x: 123 }
+c.x` throws "uninitialized"
+
+`// private member accessible to method
+c = class { x: 123; F() { .x } }
 c.F() is 123`
 
 `class { F() { this = 5 }}` throws "super"
@@ -139,7 +152,6 @@ c(123).F() is 123`
 c = class { New(.X) { } }
 c(123).X is 123`
 
-/*
 @execute // class getter methods
 
 `// normal member
@@ -174,4 +186,3 @@ throws "method not found"
 `// general getter
 c = class { Getter_(m) { '(' $ m $ ')' } }
 c.Foo is '(Foo)' and c().Foo is '(Foo)'`
-*/

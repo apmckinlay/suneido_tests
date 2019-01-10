@@ -37,7 +37,7 @@ Fixtures
 - string, expected_type, expected_value
 - string, throws "exception substring"
 
-Classes should have their content shown sorted by member. 
+Classes should have their content shown sorted by member.
 
 Functions should have their parameters shown
 
@@ -50,6 +50,8 @@ Functions should have their parameters shown
 - string, expected
 - string, `"**notfalse**"`
 - string, throws "exception substring"
+
+There should be a function Def(name, value) which can be used to define globals - this is necessary to test classes. If the value is a string, it is compiled with the specified name - this is necessary to test privatization.
 
 `@tr`
 
@@ -96,3 +98,7 @@ Test [start ..] and [start :: limit] on strings and objects
 Compares each value to all of the following values, both ways.
 
 Values must be strings that can be compiled to constants.
+
+`@compare_packed`
+
+Same as @compare except it compares the values packed.

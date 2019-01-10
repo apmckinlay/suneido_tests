@@ -197,6 +197,10 @@ default: return 1
 
 "a=1; Object([:a])", "#((a: 1))"
 "b=1; Object(a: [:b])", "#(a: [b: 1])"
+"Object(@#(1, 2, a: 3, b: 4))", "#(1, 2, a: 3, b: 4)"
+"Object(@+1#(1, 2, a: 3, b: 4))", "#(2, a: 3, b: 4)"
+"Record(@#(1, 2, a: 3, b: 4))", "#{1, 2, a: 3, b: 4}"
+"Record(@+1#(1, 2, a: 3, b: 4))", "#{2, a: 3, b: 4}"
 
 @execute // unary plus and minus conversions
 // fold
@@ -271,3 +275,39 @@ default: return 1
 "_a=1; _b=2; function(_a,_b){[a,b]}()", "[1,2]"
 "_a=1; _b=2; function(_a,_b){[a,b]}(3)", "[3,2]"
 "_a=1; _b=2; function(_a,_b){[a,b]}(3,4)", "[3,4]"
+
+@execute // naming
+
+// test Def compiles string
+"Def(#Foo, 'function(){}')
+Type(Foo)", "'Function'"
+
+"foo = function(){}
+Name(foo)", "foo"
+
+"c = class { Foo(){} }
+Name(c.Foo).Has?('.Foo')"
+
+"Def(#Foo, 'function(){}')
+Name(Foo)", "Foo"
+
+"Def(#Foo, 'class{}')
+Name(Foo)", "Foo"
+
+@execute // privatization
+
+"Def(#Foo, 'class { x: 123 }')
+Foo.Foo_x", 123
+
+"Def(#Foo, 'class { f(){ 123 } }')
+Foo.Foo_f()", 123
+
+"Def(#Foo, 'class { F(x){ .x = x } }')
+ob = Foo()
+ob.F(123)
+ob.Foo_x", 123
+
+"Def(#Foo, 'class { F(.x){ } }')
+ob = Foo()
+ob.F(123)
+ob.Foo_x", 123
