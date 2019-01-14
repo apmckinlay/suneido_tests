@@ -186,3 +186,17 @@ throws "method not found"
 `// general getter
 c = class { Getter_(m) { '(' $ m $ ')' } }
 c.Foo is '(Foo)' and c().Foo is '(Foo)'`
+
+@execute // bound methods
+
+`c = class { x: 123; F() { .x }}
+m = c.F; m()`, 123
+
+`c = class { New() { .x = 123 }; F() { .x }}
+m = c().F; m()`, 123
+
+`c = class { x: 123; f() { .x }; F() { .f }}
+m = c.F(); m()`, 123
+
+`c = class { New() { .x = 123 }; f() { .x }; F() { .f }}
+m = c().F(); m()`, 123
