@@ -199,8 +199,10 @@ default: return 1
 "b=1; Object(a: [:b])", "#(a: [b: 1])"
 "Object(@#(1, 2, a: 3, b: 4))", "#(1, 2, a: 3, b: 4)"
 "Object(@+1#(1, 2, a: 3, b: 4))", "#(2, a: 3, b: 4)"
+"x=[];y=Object(@x);x.a=1;y", "#()"
 "Record(@#(1, 2, a: 3, b: 4))", "#{1, 2, a: 3, b: 4}"
 "Record(@+1#(1, 2, a: 3, b: 4))", "#{2, a: 3, b: 4}"
+"x=[];y=Record(@x);x.a=1;y", "#{}"
 
 @execute // unary plus and minus conversions
 // fold
@@ -311,3 +313,48 @@ ob.Foo_x", 123
 ob = Foo()
 ob.F(123)
 ob.Foo_x", 123
+
+@execute // objects & records
+
+`x = #()
+x.a = 123` throws "readonly"
+
+`x = #{}
+x.a = 123` throws "readonly"
+
+`x = Object()
+x.Set_readonly()
+x.a = 123` throws "readonly"
+
+`x = Record()
+x.Set_readonly()
+x.a = 123` throws "readonly"
+
+// recursive
+`x = Object(y: Object())
+x.Set_readonly()
+x.y.a = 123` throws "readonly"
+
+`x = Record()
+x.a`, "''"
+
+`x = Object()
+x.a` throws "uninitialized member"
+
+`x = Object()
+x.Set_default(0)
+x.a`, 0
+
+`x = Record()
+x.Set_default(0)
+x.a`, 0
+
+`x = #()
+x.Set_default(0)` throws "readonly"
+
+`x = #{}
+x.Set_default(0)` throws "readonly"
+
+`x = Object()
+x.Set_readonly()
+x.Set_default(0)` throws "readonly"
