@@ -152,6 +152,24 @@ c(123).F() is 123`
 c = class { New(.X) { } }
 c(123).X is 123`
 
+@execute // privatization
+
+"Def(#Foo, 'class { x: 123 }')
+Foo.Foo_x", 123
+
+"Def(#Foo, 'class { f(){ 123 } }')
+Foo.Foo_f()", 123
+
+"Def(#Foo, 'class { F(x){ .x = x } }')
+ob = Foo()
+ob.F(123)
+ob.Foo_x", 123
+
+"Def(#Foo, 'class { F(.x){ } }')
+ob = Foo()
+ob.F(123)
+ob.Foo_x", 123
+
 @execute // class getter methods
 
 `// normal member
