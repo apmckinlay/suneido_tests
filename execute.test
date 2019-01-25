@@ -278,6 +278,10 @@ default: return 1
 "_a=1; _b=2; function(_a,_b){[a,b]}(3)", "[3,2]"
 "_a=1; _b=2; function(_a,_b){[a,b]}(3,4)", "[3,4]"
 
+// non-method member call
+"ob = Object(f: function(){123}); ob.f()" throws "method not found"
+"ob = Object(f: function(){123}); (ob.f)()", 123
+
 @execute // naming
 
 // test Def compiles string
