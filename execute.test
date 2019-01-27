@@ -300,5 +300,31 @@ Name(Foo)", "Foo"
 "Def(#Foo, 'class{}')
 Name(Foo)", "Foo"
 
+@execute // blocks
 
+// non closures
 
+`b = { 123 }; b()`, 123
+
+`b = {|x,y| x+y }; b(1,2)`, 3
+
+`b = {|it| 2 * it }; b(3)`, 6
+
+`b = { 2 * it }; b(3)`, 6
+
+// closures
+
+`x = 6; y = 3; b = { x / y }; b()`, 2
+
+`x = 6; b = {|a| x / a }; b(3)`, 2
+
+`x = 123; b = { x = 456 }; b(); x`, 456
+
+`class { x: 123; F() { b = { .x }; b() } }.F()`, 123 // this
+
+// escaping closures
+
+`f = function (x) { return {|a| x * a } }; b = f(2); b(3)`, 6
+
+`f = function (x,ob) { ob.b = {|a| x * a };0 };
+ob = Object(); f(2,ob); (ob.b)(3)`, 6
