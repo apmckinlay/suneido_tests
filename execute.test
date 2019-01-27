@@ -328,3 +328,15 @@ Name(Foo)", "Foo"
 
 `f = function (x,ob) { ob.b = {|a| x * a };0 };
 ob = Object(); f(2,ob); (ob.b)(3)`, 6
+
+@ execute // object iterator and for-in
+
+`ob = Object()
+for (iter = #(2,4,8).Iter(); iter isnt x = iter.Next(); )
+	ob.Add(x)
+ob`, `#(2,4,8)`
+
+`ob = Object()
+for x in #(2,4,8)
+	ob.Add(x)
+ob`, `#(2,4,8)`
