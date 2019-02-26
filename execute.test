@@ -340,3 +340,26 @@ ob`, `#(2,4,8)`
 for x in #(2,4,8)
 	ob.Add(x)
 ob`, `#(2,4,8)`
+
+@execute // try, catch, throw
+
+`x = 0; try x = 123; x`, 123
+
+`x = 0; try x = 123 catch x = 456; x`, 123
+
+`try return 123`, 123
+
+`throw "foo"` throws "foo"
+
+`try throw "foo"; false`, false
+
+`try throw "foo" catch {}; false`, false
+
+`try throw "foo" catch (e) return 'e=' $ e`, `"e=foo"`
+
+`try throw "foo" catch (e, 'x') return 'e=' $ e` throws "foo"
+
+`try throw "foo" catch (e, 'f') return 'e=' $ e`, `"e=foo"`
+
+`try throw "foobar" catch (e, '*bar') return 'e=' $ e`, `"e=foobar"`
+
