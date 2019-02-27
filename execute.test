@@ -351,9 +351,9 @@ ob`, `#(2,4,8)`
 
 `throw "foo"` throws "foo"
 
-`try throw "foo"; false`, false
+`try throw "foo"; 123`, 123
 
-`try throw "foo" catch {}; false`, false
+`try throw "foo" catch {}; 123`, 123
 
 `try throw "foo" catch (e) return 'e=' $ e`, `"e=foo"`
 
@@ -363,3 +363,11 @@ ob`, `#(2,4,8)`
 
 `try throw "foobar" catch (e, '*bar') return 'e=' $ e`, `"e=foobar"`
 
+`try throw "foo" catch (e, "f") {}; try throw "foobar" catch (e, "x") {}`,
+	throws "foobar"
+
+`try throw "foo" catch (e) return Type('e=' $ e)`, `Except`
+
+`try throw "foo" catch (e) return Type(e $ '=e')`, `Except`
+
+`try throw "foo" catch (e) return Type('x'.Repeat(1000) $ 'y' $ e)`, `Except`
