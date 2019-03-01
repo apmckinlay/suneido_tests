@@ -371,3 +371,9 @@ ob`, `#(2,4,8)`
 `try throw "foo" catch (e) return Type(e $ '=e')`, `Except`
 
 `try throw "foo" catch (e) return Type('x'.Repeat(1000) $ 'y' $ e)`, `Except`
+
+// return from block returns from parent
+`b = { return 123 }; b(); 456`, 123
+
+// including indirectly (c makes f also a catching block parent)
+`f = function (b){ c={}; b() }; f({ return 123 }); 456`, 123
