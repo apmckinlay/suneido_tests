@@ -377,3 +377,71 @@ ob`, `#(2,4,8)`
 
 // including indirectly (c makes f also a catching block parent)
 `f = function (b){ c={}; b() }; f({ return 123 }); 456`, 123
+
+@execute // sequences
+
+`#(2, 4, a: 6).Values()`, `#(2, 4, 6)`
+
+`#(2, 4, a: 6).Members()`, `#(0, 1, a)`
+
+`#(2, 4, a: 6).Assocs()`, `#((0,2), (1,4), (a,6))`
+
+`Seq(5)`, `#(0,1,2,3,4)`
+
+`Seq(1, to: 5)`, `#(1,2,3,4)`
+
+`Seq(1, to: 10, by: 2)`, `#(1,3,5,7,9)`
+
+`Def('Q', 'class {
+	Next() { .i < 4 ? .i++ : this }
+	Dup() { new (.Base()) }
+	i: 0 }'); true`
+
+`Sequence(Q())`, `#(0,1,2,3)`
+
+`q = Sequence(Q()); q.Infinite?()`, false
+
+`q = Sequence(Q()); q.Instantiated?()`, false
+
+`q = Sequence(Q()); q.Infinite?(); q.Instantiated?()`, false
+
+`q = Sequence(Q()); q.Iter().Next()`, 0
+
+`q = Sequence(Q()); q.Iter().Next(); q.Instantiated?()`, false
+
+// two dups = instantiate
+`q = Sequence(Q());
+q.Iter().Next(); q.Iter().Next(); q.Instantiated?()`, true
+
+`q = Sequence(Q()); q.Join(',')`, `'0,1,2,3'`
+
+`q = Sequence(Q()); q.Join(','); q.Instantiated?()`, false
+
+`ob = Object(); for x in Sequence(Q())
+ob.Add(x)
+ob`, `#(0,1,2,3)`
+
+// infinite sequence
+`Def('Qi', 'class {
+	Next() { .i++ }
+	Dup() { new (.Base()) }
+	Infinite?() { true}
+	i: 0 }'); true`
+
+`q = Sequence(Qi()); q.Infinite?()`, true
+
+`q = Sequence(Qi()); q.Instantiated?()`, false
+
+`q = Sequence(Qi()); q.Infinite?(); q.Instantiated?()`, false
+
+// infinite, so two dups != instantiate
+`q = Sequence(Qi());
+q.Iter().Next(); q.Iter().Next(); q.Instantiated?()`, false
+
+`Seq?(123)`, false
+
+`Seq?(#())`, false
+
+`Seq?(Seq())`, true
+
+`Seq?(Sequence(Q()))`, true
