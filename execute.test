@@ -205,16 +205,15 @@ default: return 1
 "x=[];y=Record(@x);x.a=1;y", "#{}"
 
 @execute // unary plus and minus conversions
+"x = true; +x" throws "can't convert true to number"
+"x = false; +x", 0
+"x = true; -x" throws "can't convert true to number"
+"x = false; -x", 0
 // fold
 "+true" throws "can't convert true to number"
 "+false", 0
 "-true" throws "can't convert true to number"
 "-false", 0
-// execute
-"x = true; +x" throws "can't convert true to number"
-"x = false; +x", 0
-"x = true; -x" throws "can't convert true to number"
-"x = false; -x", 0
 
 @execute // calls
 

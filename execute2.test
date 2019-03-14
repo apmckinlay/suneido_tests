@@ -4,6 +4,7 @@
 "Type(123)", "'Number'"
 "Type(function () { })", "'Function'"
 "Type(class { })", "'Class'"
+"Type(class { }())", "'Instance'"
 "Type(Pack)", "'BuiltinFunction'"
 "Type(Date)", "'BuiltinClass'"
 "Type(Date())", "'Date'"
