@@ -45,6 +45,8 @@ Functions should have their parameters shown
 
 - value, method, arg ..., expected
 
+@method tests could be done with @execute, but @method doesn't require compiling and executing code.
+
 `@execute` // compile and run
 
 - string, expected

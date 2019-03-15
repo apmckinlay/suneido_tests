@@ -140,3 +140,41 @@ x.Set_default(0)` throws "readonly"
 `[11,22,a:33,b:44].Erase(#b)`, `[11,22,a:33]`
 
 `[11,22,a:33,b:44].Erase(1,0,#a,'b')`, `[]`
+
+// Join
+
+`[11,22,33,foo:44].Join()`, `"112233"`
+
+`[11,22,33,foo:44].Join('=>')`, `"11=>22=>33"`
+
+// Find
+
+`[11,22,a:33,b:44].Find(99)`, false
+
+`[11,22,a:33,b:44].Find(0)`, false
+
+`[11,22,a:33,b:44].Find(#a)`, false
+
+`[11,22,a:33,b:44].Find(11)`, 0
+
+`[11,22,a:33,b:44].Find(22)`, 1
+
+`[11,22,a:33,b:44].Find(33)`, `#a`
+
+`[11,22,a:33,b:44].Find(44)`, `#b`
+
+// Copy
+
+`#().Copy()`, `#()`
+
+`#(1,2,3).Copy()`, `#(1,2,3)`
+
+`#(11,22,a:33,b:44).Copy()`, `#(11,22,a:33,b:44)`
+
+`#(a:33,b:44).Copy()`, `#(a:33,b:44)`
+
+`#().Add(123)` throws "readonly"
+
+`#().Copy().Add(123)`, `#(123)` // copy of read-only is not read-only
+
+`Type([].Copy())`, `"Record"` // copy of a Record is a Record

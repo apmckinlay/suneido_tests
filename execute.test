@@ -444,3 +444,17 @@ q.Iter().Next(); q.Iter().Next(); q.Instantiated?()`, false
 `Seq?(Seq())`, true
 
 `Seq?(Sequence(Q()))`, true
+
+@execute // string.Eval
+
+`"123".Eval()`, 123
+
+`Def("X", 123); "X".Eval()`, 123
+
+`"123 + 456".Eval()`, 579
+
+`"return".Eval()`, `""`
+
+`"123 + 456".Eval2()`, `#(579)`
+
+`"return".Eval2()`, `#()`

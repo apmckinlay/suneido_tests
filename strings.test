@@ -1,0 +1,17 @@
+@execute // strings
+
+// Split
+
+`"hello".Split('')` throws `must not be empty`
+
+`"one,two,three".Split(',')`, `#(one,two,three)`
+
+`"".Split(',')`, `#()`
+
+`"one".Split(',')`, `#(one)`
+
+`"one,".Split(',')`, `#(one)`
+
+`",one".Split(',')`, `#("",one)`
+
+`"one=>two=>three".Split('=>')`, `#(one,two,three)`
