@@ -178,3 +178,14 @@ x.Set_default(0)` throws "readonly"
 `#().Copy().Add(123)`, `#(123)` // copy of read-only is not read-only
 
 `Type([].Copy())`, `"Record"` // copy of a Record is a Record
+
+// Eval
+
+`#(A:123).Eval(function(){.A})`, 123
+
+`#(a:123).Eval(function(a){a + .a}, 456)`, 579
+
+`#(a:123).Eval(@#(function(a){a + .a}, 456))`, 579
+
+`c = class{A: 222; F(){.A}}; #(A:123).Eval(c.F)`, 123 // bound method
+

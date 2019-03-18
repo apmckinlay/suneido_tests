@@ -188,9 +188,6 @@ default: return 1
 @execute // argument handling
 "Object().Add(@Seq(1000)).Size()", 1000 //  // Add(@ shouldn't expand onto stack
 
-"Object(a: 123).Eval(function (x) { x * .a }, 10)", 1230
-"Object(a: 123).Eval(@#(function (x) { x * .a }, 10))", 1230
-
 "Object(a: 1, a: 2)" throws "duplicate argument name"
 
 "a=1; Object(:a)", "#(a: 1)"
@@ -203,6 +200,9 @@ default: return 1
 "Record(@#(1, 2, a: 3, b: 4))", "#{1, 2, a: 3, b: 4}"
 "Record(@+1#(1, 2, a: 3, b: 4))", "#{2, a: 3, b: 4}"
 "x=[];y=Record(@x);x.a=1;y", "#{}"
+
+`function(x){x}(@#(123))`, 123
+`function(x){x}(@+1#(123,456))`, 456
 
 @execute // unary plus and minus conversions
 "x = true; +x" throws "can't convert true to number"
@@ -458,3 +458,4 @@ q.Iter().Next(); q.Iter().Next(); q.Instantiated?()`, false
 `"123 + 456".Eval2()`, `#(579)`
 
 `"return".Eval2()`, `#()`
+
