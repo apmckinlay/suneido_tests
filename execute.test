@@ -377,6 +377,10 @@ ob`, `#(2,4,8)`
 // including indirectly (c makes f also a catching block parent)
 `f = function (b){ c={}; b() }; f({ return 123 }); 456`, 123
 
+`Finally({ throw 'foo' }, { throw 'bar' })` throws `foo`
+
+`Finally({ 123 }, { throw 'bar' })` throws `bar`
+
 @execute // sequences
 
 `#(2, 4, a: 6).Values()`, `#(2, 4, 6)`

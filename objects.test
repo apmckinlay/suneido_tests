@@ -43,6 +43,30 @@ x.Set_default(0)` throws "readonly"
 x.Set_readonly()
 x.Set_default(0)` throws "readonly"
 
+// object.Size
+
+`#(1,2,3,a:4,b:5).Size()`, 5
+
+`#(1,2,3,a:4,b:5).Size(list:)`, 3
+
+`#(1,2,3,a:4,b:5).Size(named:)`, 2
+
+`#(1,2,3,a:4,b:5).Size(list:, named:)`, 5
+
+`#(1,2,3).Size(named:)`, 0
+
+`#(a:4,b:5).Size(list:)`, 0
+
+// object.GetDefault
+
+`#(a:123,b:456).GetDefault(#a, 0)`, 123
+
+`#(a:123,b:456).GetDefault(#c, 789)`, 789
+
+`#(a:123,b:456).GetDefault(#c, { 123 + 456 })`, 579
+
+`#(a:123,b:456).GetDefault(#c){ 123 + 456 }`, 579
+
 // object.Add
 
 `Object().Add(1)`, `#(1)`
