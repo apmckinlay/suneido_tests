@@ -65,6 +65,12 @@ There should be a function Def(name, value) which can be used to define globals 
 - string, pattern, false // shouldn't match
 - string, pattern, \0, \1 ...
 
+`@regex_replace`
+
+- string, pattern, replacement, expected
+
+Only the first match is replaced.
+
 `@dnum_add` // check both ways  
 `@dnum_sub` // checks x - y = z and if z != 0 also y - x = -z  
 `@dnum_mul` // check both ways  
