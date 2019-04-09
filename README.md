@@ -110,3 +110,5 @@ Values must be strings that can be compiled to constants.
 `@compare_packed`
 
 Same as @compare except it compares the values packed.
+
+It should also check that Unpack reverses Pack.
