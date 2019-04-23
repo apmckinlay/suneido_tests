@@ -215,18 +215,19 @@
 "m", "[a-]", false
 
 "foo123", "([a-z]+)([0-9]+)", "foo123", "foo", "123"
-"hello there world", "(\w+ )+", "hello there ", "there "
+"hello there world", `(\w+ )+`, "hello there ", "there "
 "hello world", "hello(x?)", "hello"
 
 @regex_replace
 
 "now is the time"	"now"	"never"		"never is the time"
-"now is the time"	"now"	"\=never"	"never is the time"
+"now is the time"	"now"	`\=never`	"never is the time"
 "now is the time"	"is"	"&&"		"now isis the time"
 "now is the time"	"is"	`&\n`		"now is\n the time"
 "now is the time"	"is"	`\&`		"now & the time"
 "now is the time"	"the"	"\U&"		"now is THE time"
 "now is the time"	"the"	"\u&"		"now is The time"
-"NOW IS THE TIME"	"THE"	"\L&"		"NOW IS the TIME"
-"NOW IS THE TIME"	"THE"	"\l&"		"NOW IS tHE TIME"
-"now is the time"	"(\w+) (\w+)"	"\2 \1"		"is now the time"
+"NOW IS THE TIME"	"THE"	`\L&`		"NOW IS the TIME"
+"NOW IS THE TIME"	"THE"	`\l&`		"NOW IS tHE TIME"
+"now is the time"	`(\w+) (\w+)`	"\2-\1"		"is-now the time"
+"now is the time"	` (\w+) (\w+) `	"\2\1"		"nowtheistime"
