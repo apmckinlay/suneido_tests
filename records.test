@@ -34,3 +34,15 @@ o = false
 r.Observer({|member| o = member })
 r.PreSet(#foo, 123)
 [o,r.foo]`, `#(false,123)`
+
+// _lower! with no value
+`r = Record()
+r.foo_lower!`, `""`
+
+// _lower! with non-string
+`r = Record(foo: true)
+r.foo_lower!`, `true`
+
+// _lower!
+`r = Record(foo: "Hello World")
+r.foo_lower!`, `"hello world"`
