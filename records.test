@@ -1,0 +1,29 @@
+@execute // observers
+
+// multiple observers
+`r = Record()
+r.Observer({|member| o1 = member })
+r.Observer({|member| o2 = member })
+r.foo = 123
+[o1, o2]`, `#(foo,foo)`
+
+// RemoveObserver
+`r = Record()
+r.Observer(b1 = {|member| o1 = member })
+r.Observer({|member| o2 = member })
+r.foo = 123
+r.RemoveObserver(b1)
+r.bar = 456
+[o1, o2]`, `#(foo,bar)`
+
+// observer called as method
+`r = Record()
+r.Observer({|member| o = member $ '=' $ this[member] })
+r.foo = 123
+o`, `"foo=123"`
+
+// recursive with different members allowed
+`r = Record()
+r.Observer({|member| .bar = 456; o = member })
+r.foo = 123
+o`, `bar`
