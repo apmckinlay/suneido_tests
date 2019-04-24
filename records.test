@@ -27,3 +27,10 @@ o`, `"foo=123"`
 r.Observer({|member| .bar = 456; o = member })
 r.foo = 123
 o`, `bar`
+
+// PreSet doesn't call observers
+`r = Record()
+o = false
+r.Observer({|member| o = member })
+r.PreSet(#foo, 123)
+[o,r.foo]`, `#(false,123)`
