@@ -35,14 +35,113 @@ r.Observer({|member| o = member })
 r.PreSet(#foo, 123)
 [o,r.foo]`, `#(false,123)`
 
+// queued observers
+`r = Record()
+r.Observer({|member| o1 = member; r.bar = 1 })
+r.Observer({|member| o2 = member })
+r.foo = 123
+[o1,o2]`, `#(bar, foo)`
+
+@execute // rules
+
 // _lower! with no value
 `r = Record()
 r.foo_lower!`, `""`
 
 // _lower! with non-string
-`r = Record(foo: true)
-r.foo_lower!`, `true`
+`Record(foo: true).foo_lower!`, `true`
 
 // _lower!
-`r = Record(foo: "Hello World")
-r.foo_lower!`, `"hello world"`
+`Record(foo: "Hello World").foo_lower!`, `"hello world"`
+
+// simple implicit rule, no dependencies
+`Def('Rule_foo', function() { 123 })
+Record().foo`, 123
+
+// removing default disables implicit rules
+`Def('Rule_foo', function() { 123 })
+r = Record()
+r.Set_default()
+r.foo` throws "uninitialized member"
+
+// rule saves result
+`Def('Rule_foo', function() { 123 })
+r = Record()
+r.foo
+r`, `[foo: 123]`
+
+// rule does not save result if read-only
+`Def('Rule_foo', function() { 123 })
+r = #{}
+r.foo
+r`, `#{}`
+
+// attached rule
+`r = Record()
+r.AttachRule('foo', function(){ 123 })
+r.foo`, 123
+
+// attached rule overrides implicit rule
+`Def('Rule_foo', function() { 123 })
+r = Record()
+r.AttachRule('foo', function(){ 456 })
+r.foo`, 456
+
+// rule exception is wrapped
+`r = Record()
+r.AttachRule('foo', function(){ throw "error" })
+r.foo` throws "foo)"
+
+// rule doesn't trigger itself
+`r = Record()
+r.AttachRule('foo', function(){ .foo; 123 })
+r.foo`, 123
+
+// rule dependencies tracked
+`Def('Rule_foo', function() { .bar $ .baz })
+r = Record()
+r.foo
+r.GetDeps(#foo).Split(',').Sort!()`, `#(bar,baz)`
+
+// rule SetDeps/GetDeps roundtrip
+`r = Record()
+r.SetDeps(#foo, "one, two,three ")
+r.GetDeps(#foo).Split(',').Sort!()`, `#(one,three,two)`
+
+// rule result cached, only called when missing/invalid
+`n = 0
+r = Record()
+r.AttachRule('foo', { n++; .bar })
+r.foo
+r.foo
+n` 1
+
+// rule result cached, called again when dependency changes
+`n = 0
+r = Record()
+r.AttachRule('foo', { n++; .bar })
+r.foo
+r.foo
+r.bar = 123
+x = r.foo
+[n,x]`, `#(2,123)`
+
+// rule not invalidated if value doesn't change
+`n = 0
+r = Record(bar: 123)
+r.AttachRule('foo', { n++; .bar })
+r.foo
+r.foo
+r.bar = 123
+x = r.foo
+[n,x]`, `#(1,123)`
+
+// rule result cached, called again when invalidated
+`n = 0
+r = Record(bar: 123)
+r.AttachRule('foo', { n++; .bar })
+r.foo
+r.foo
+r.Invalidate(#foo)
+x = r.foo
+[n,x]`, `#(2,123)`
