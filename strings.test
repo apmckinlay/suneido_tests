@@ -1,4 +1,4 @@
-@execute // string.Split
+@execute // strings
 
 `"hello".Split('')` throws `must not be empty`
 
@@ -14,7 +14,9 @@
 
 `"one=>two=>three".Split('=>')`, `#(one,two,three)`
 
-@method // string.FindLast
+@method
+
+// string.FindLast
 
 // without position
 "this is a test"	FindLast	""		14
@@ -43,7 +45,9 @@
 "this is a test"	FindLast	"xyz"	-9	false
 "this is a test"	FindLast	"xyz"	0	false
 
-@execute // string.Match
+@execute
+
+// string.Match
 
 `"now is the time".Match("foo")`			false
 `"now is the time".Match("now")`			"#(#(0,3))"
@@ -63,7 +67,12 @@
 
 `"now is the time".Match("(\w+) (\w+) (\w+)")`	"#((0,10),(0,3),(4,2),(7,3))"
 
-@execute // string.Eval
+// string.Extract
+
+`"hello world".Extract(".....$")`, `world`
+`"hello world".Extract("w(..)ld")`, `or`
+
+// string.Eval
 
 `"123".Eval()`, 123
 

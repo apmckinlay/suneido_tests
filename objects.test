@@ -1,5 +1,9 @@
 @execute
 
+`Type([])`, Record
+`Type([a: 1, b: 2])`, Record
+`Type([1, 2, a: 3])`, Object
+
 `x = #()
 x.a = 123` throws "readonly"
 
@@ -213,3 +217,24 @@ x.Set_default(0)` throws "readonly"
 
 `c = class{A: 222; F(){.A}}; #(A:123).Eval(c.F)`, 123 // bound method
 
+// BinarySearch
+
+`#().BinarySearch(123)`, 0
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(0)`, 0
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(1)`, 0
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(2)`, 1
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(3)`, 2
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(4)`, 4
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(9)`, 6
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(2, {|x,y| x <= y})`, 2
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(3, {|x,y| x <= y})`, 4
+
+`#(1, 2, 3, 3, 4, 5).BinarySearch(4, {|x,y| x <= y})`, 5

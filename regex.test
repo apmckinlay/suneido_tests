@@ -1,5 +1,3 @@
-// TODO regex replace
-
 @regex_match
 
 "", ""
@@ -213,6 +211,7 @@
 "m", "[-z]", false
 "-", "[a-]"
 "m", "[a-]", false
+"aZ", "[a-Z]", false
 
 "foo123", "([a-z]+)([0-9]+)", "foo123", "foo", "123"
 "hello there world", `(\w+ )+`, "hello there ", "there "

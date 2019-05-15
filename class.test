@@ -410,7 +410,7 @@ x.B = 456
 y = x.Copy()
 [y.Base?(C), y.A, y.B]`, `#(true, 123, 456)`
 
-@execute // class Default method
+// class Default method
 
 `c = class { Default(@args) { args } }
 c.Foo()`, `#(Foo)`
@@ -426,3 +426,18 @@ c.Foo(@+1#(1,2,a:3))`, `#(Foo,2,a:3)`
 
 `c = class { Default(@args) { args } }
 c().Foo(12,34)`, `#(Foo,12,34)`
+
+// Eval
+
+`c = class { X: 123 }
+c.Eval({ .X })`, 123
+
+`c = class { X: 123 }
+c.Eval2({ .X })`, `#(123)`
+
+`c = class { X: 123 }
+c().Eval({ .X })`, 123
+
+`x = class{}()
+x.X = 123
+x.Eval({ .X })`, 123

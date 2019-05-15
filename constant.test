@@ -59,6 +59,10 @@
 
 '#(a: 1, a: 2)' throws 'duplicate member name'
 
+`[]`, Record, `[]`
+`[b: 1, c: 2]`, Record, `[b: 1, c: 2]`
+`[1, 2]`, Object, `#(1, 2)`
+
 @compile // class
 'class { }', Class, 'class{}'
 'Base { }', Class, 'Base{}'
