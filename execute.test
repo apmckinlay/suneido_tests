@@ -185,6 +185,23 @@ default: return 1
 "x = Object(1,2,3); x[0::2]", "#(1,2)"
 "x = Object(3); x[0::1][0] = 9; x", "#(3)"
 
+// folding/optimization still type checks
+
+`0 + "123"` throws "can't convert"
+`"123" + 0` throws "can't convert"
+`x = "123"; 0 + x` throws "can't convert"
+`x = "123"; x + 0` throws "can't convert"
+
+`1 * "123"` throws "can't convert"
+`"123" * 1` throws "can't convert"
+`x = "123"; 1 * x` throws "can't convert"
+`x = "123"; x * 1` throws "can't convert"
+
+`"" $ #()` throws "can't convert"
+`#() $ ""` throws "can't convert"
+`x = #(); x $ ""` throws "can't convert"
+`x = #(); "" $ x` throws "can't convert"
+
 @execute // argument handling
 "Object().Add(@Seq(1000)).Size()", 1000 //  // Add(@ shouldn't expand onto stack
 
@@ -307,6 +324,10 @@ Name(Foo)", "Foo"
 `f = function (x,ob) { ob.b = {|a| x * a };0 };
 ob = Object(); f(2,ob); (ob.b)(3)`, 6
 
+// parameters
+
+`t = false; b = {|t| return t }; b(true)`, `true`
+
 @ execute // object iterator and for-in
 
 `ob = Object()
@@ -354,6 +375,8 @@ ob`, `#(2,4,8)`
 `try throw "foo" catch (e) return Type(e $ '=e')`, `Except`
 
 `try throw "foo" catch (e) return Type('x'.Repeat(1000) $ 'y' $ e)`, `Except`
+
+`try throw "error" catch (e) return "error" is e`, true
 
 // return from block returns from parent
 `b = { return 123 }; b(); 456`, 123

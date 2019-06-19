@@ -1,3 +1,9 @@
+@execute
+
+`Record?(Record())`
+`Record?(#{})`
+`Record?([])`
+
 @execute // observers
 
 // multiple observers

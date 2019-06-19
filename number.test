@@ -1,3 +1,12 @@
+@execute // bitwise operations
+`0xffffffff`, -1
+`0xffffffff | 1`, 0xffffffff
+`0xffffffff ^ 1`, 0xfffffffe
+`0xffffffff >> 1`, 0x7fffffff
+`0xffffffff << 1`, 0xfffffffe
+`1 << 31`, 0x80000000
+`0x80000000 >> 31`, 1
+
 @method // number.Format
 0		Format '###'		'0'
 0		Format '###.'		'0.'

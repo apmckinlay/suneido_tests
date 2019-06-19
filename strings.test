@@ -85,3 +85,16 @@
 `"123 + 456".Eval2()`, `#(579)`
 
 `"return".Eval2()`, `#()`
+
+// calling a string
+`#Upper("abc")`, `"ABC"`
+`#Upper(@#(abc))`, `"ABC"`
+`#Upper(@+1#(abc,def))`, `"DEF"`
+
+// Asc, Chr, binary data
+`"\x00".Asc()`, `0`
+`"a".Asc()`, `97`
+`"\xff".Asc()`, `255`
+`0.Chr()`, `"\x00"`
+`97.Chr()`, `"a"`
+`255.Chr()`, `"\xff"`

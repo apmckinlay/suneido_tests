@@ -427,6 +427,12 @@ c.Foo(@+1#(1,2,a:3))`, `#(Foo,2,a:3)`
 `c = class { Default(@args) { args } }
 c().Foo(12,34)`, `#(Foo,12,34)`
 
+`c = class { Foo(x,y) { x + y } Default(@args) { args } }
+c.Foo(12,34)`, `46`
+
+`c = class { Foo(x,y) { x + y } Default(@args) { args } }
+c().Foo(12,34)`, `46`
+
 // Eval
 
 `c = class { X: 123 }

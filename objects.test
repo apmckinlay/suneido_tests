@@ -4,6 +4,12 @@
 `Type([a: 1, b: 2])`, Record
 `Type([1, 2, a: 3])`, Object
 
+`Object?(Object())`
+`Object?(#())`
+`Object?(Record())`
+`Object?(#{})`
+`Object?([])`
+
 `x = #()
 x.a = 123` throws "readonly"
 
