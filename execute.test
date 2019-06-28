@@ -182,6 +182,12 @@ default: return 1
 "x = #(); x['' ::]" throws "indexes must be integers"
 "x = #(); x[false ::]" throws "indexes must be integers"
 
+// but second value in ranges should accept "" and false
+"s = 'hello'; s[..'']", "''"
+"s = 'hello'; s[..false]", "''"
+"s = 'hello'; s[::'']", "''"
+"s = 'hello'; s[::false]", "''"
+
 "x = Object(1,2,3); x[0::2]", "#(1,2)"
 "x = Object(3); x[0::1][0] = 9; x", "#(3)"
 
@@ -327,6 +333,17 @@ ob = Object(); f(2,ob); (ob.b)(3)`, 6
 // parameters
 
 `t = false; b = {|t| return t }; b(true)`, `true`
+
+// block parameter names offset from parent function names
+`outside = 0
+b = {|env| outside }
+env = 123
+b(env: env)`, 0
+
+// nested blocks (check that locals are shared)
+`run = function (block) { block() }
+run() { run() { x = 123 } }
+x`, 123
 
 @ execute // object iterator and for-in
 

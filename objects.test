@@ -3,6 +3,7 @@
 `Type([])`, Record
 `Type([a: 1, b: 2])`, Record
 `Type([1, 2, a: 3])`, Object
+`x=1; Type([x, a: 3])`, Object
 
 `Object?(Object())`
 `Object?(#())`
@@ -52,6 +53,34 @@ x.Set_default(0)` throws "readonly"
 `x = Object()
 x.Set_readonly()
 x.Set_default(0)` throws "readonly"
+
+`x = Object()
+x.Set_default(#())
+d = x.foo
+d.m = 123
+x.foo`, `#(m: 123)`
+
+`x = Object()
+x.Set_default(#{})
+Type(x.foo)`, `Record`
+
+`x = Object()
+x.Set_default(#())
+d = x.foo
+d.m = 123
+x.bar`, `#()`
+
+`x = Record()
+x.Set_default(#())
+d = x.foo
+d.m = 123
+x.foo`, `#(m: 123)`
+
+`x = Record()
+x.Set_default(#())
+d = x.foo
+d.m = 123
+x.bar`, `#()`
 
 // object.Size
 
