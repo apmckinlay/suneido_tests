@@ -237,6 +237,14 @@ i = class { X: 123; Getter_(m) { .X } }()
 i.X = 456;
 i.A`, 456
 
+`// getter should handle non-string (class)
+c = class { Getter_(m) { m } }
+c[123]`, 123
+
+`// getter should handle non-string (instance)
+i = class { Getter_(m) { m } }()
+i[123]`, 123
+
 @execute // bound methods
 
 `c = class { x: 123; F() { .x }}
@@ -307,6 +315,9 @@ x.Members()`, `#()`
 
 `Def("C", "class { }")
 C.Base()`, false
+
+`Def("C", "class { }")
+C.Base?(C)`
 
 `Def("C", "class { }")
 C().Base() is C`
