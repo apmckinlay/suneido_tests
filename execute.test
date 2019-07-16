@@ -395,6 +395,10 @@ ob`, `#(2,4,8)`
 
 `try throw "error" catch (e) return "error" is e`, true
 
+`try 123
+catch (e) throw "caught"
+throw "after"` throws "after"
+
 // return from block returns from parent
 `b = { return 123 }; b(); 456`, 123
 
