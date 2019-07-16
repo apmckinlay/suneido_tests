@@ -69,8 +69,12 @@
 
 // string.Extract
 
-`"hello world".Extract(".....$")`, `world`
-`"hello world".Extract("w(..)ld")`, `or`
+`"hello world".Extract(".....$")`, `"world"`
+`"hello world".Extract("w(..)ld")`, `"or"`
+`"hello world".Extract("(\w+) (\w+)")`, `"hello"`
+`"hello world".Extract("(\w+) (\w+)", 0)`, `"hello world"`
+`"hello world".Extract("(\w+) (\w+)", 1)`, `"hello"`
+`"hello world".Extract("(\w+) (\w+)", 2)`, `"world"`
 
 // string.Eval
 
