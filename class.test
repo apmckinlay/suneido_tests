@@ -421,7 +421,7 @@ x.B = 456
 y = x.Copy()
 [y.Base?(C), y.A, y.B]`, `#(true, 123, 456)`
 
-// class Default method
+// Default method
 
 `c = class { Default(@args) { args } }
 c.Foo()`, `#(Foo)`
@@ -443,6 +443,10 @@ c.Foo(12,34)`, `46`
 
 `c = class { Foo(x,y) { x + y } Default(@args) { args } }
 c().Foo(12,34)`, `46`
+
+`// Default works with call
+i = new class { Default(@args) { args } }
+i()`, `#(Call)`
 
 // Eval
 
