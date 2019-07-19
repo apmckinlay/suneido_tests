@@ -395,7 +395,7 @@ ob`, `#(2,4,8)`
 
 `try throw "error" catch (e) return "error" is e`, true
 
-`try 123
+`try x=123
 catch (e) throw "caught"
 throw "after"` throws "after"
 
