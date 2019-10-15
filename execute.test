@@ -283,6 +283,13 @@ default: return 1
 "ob = Object(f: function(){123}); ob.f()" throws "method not found"
 "ob = Object(f: function(){123}); (ob.f)()", 123
 
+// return nil passthrough
+`f = function(){}; return f()`, nil
+`f = function(){}; x = true; return x ? f() : f()`, nil
+`f = function(){}; x = false; return x ? f() : f()`, nil
+`f = function(){}; b = { return f() }; b()`, nil // closure
+`b = { f = function(){}; return f() }; b()`, nil // non-closure
+
 @execute // naming
 
 // test Def compiles string
