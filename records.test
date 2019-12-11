@@ -4,6 +4,10 @@
 `Record?(#{})`
 `Record?([])`
 
+`r=[a: 1, b: 2];r.Clear();r`, `[]`
+`Object().Clear()` throws "not found"
+`r=[a: 1, b: 2];r.Delete(all:);r`, `[]`
+
 @execute // observers
 
 // multiple observers
@@ -85,6 +89,12 @@ r`, `#{}`
 // attached rule
 `r = Record()
 r.AttachRule('foo', function(){ 123 })
+r.foo`, 123
+
+// attached rule still applies even if default removed to disable implicit rules
+`r = Record()
+r.AttachRule('foo', function(){ 123 })
+r.Set_default()
 r.foo`, 123
 
 // attached rule overrides implicit rule
