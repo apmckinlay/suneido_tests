@@ -244,6 +244,8 @@ x.bar`, `#()`
 
 // Eval
 
+`x = #(A:123).Eval(function(){ })` throws `no return value`
+
 `#(A:123).Eval(function(){.A})`, 123
 
 `#(a:123).Eval(function(a){a + .a}, 456)`, 579

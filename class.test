@@ -453,11 +453,17 @@ i()`, `#(Call)`
 `c = class { X: 123 }
 c.Eval({ .X })`, 123
 
+`c = class { }
+x = c.Eval({ ; })` throws `no return value`
+
 `c = class { X: 123 }
 c.Eval2({ .X })`, `#(123)`
 
 `c = class { X: 123 }
 c().Eval({ .X })`, 123
+
+`c = class { }
+x = c().Eval({ ; })` throws `no return value`
 
 `x = class{}()
 x.X = 123
