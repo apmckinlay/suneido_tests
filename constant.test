@@ -87,4 +87,4 @@
 'function (.a) {}' throws 'dot parameters only allowed in class methods'
 'function (a, b, a) {}' throws 'duplicate function parameter'
 
-'function(){ .New() }' throws "cannot explicitly call New method"
+'function(){ .New() }' throws "can't explicitly call New method"
