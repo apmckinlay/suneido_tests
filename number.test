@@ -31,6 +31,7 @@
 12345	Format '###,###'	'12,345'
 123456	Format '###,###'	'123,456'
 1e5		Format '###,###',	'100,000'
+.8		Format 'Foo',		'#'
 
 @method // number.Round
 0				Round 0		0
