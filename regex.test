@@ -217,6 +217,9 @@
 "hello there world", `(\w+ )+`, "hello there ", "there "
 "hello world", "hello(x?)", "hello"
 
+"hello world", `(a...b)|(h...o)`, "hello", "", "hello"
+"-ccc-", `(aaa)|(bbb)|(ccc)`, "ccc", "", "", "ccc"
+
 @regex_replace
 
 "now is the time"	"now"	"never"		"never is the time"
