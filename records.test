@@ -52,6 +52,27 @@ r.Observer({|member| o2 = member })
 r.foo = 123
 [o1,o2]`, `#(bar, foo)`
 
+// observer not called for assignment of equal value
+`r = Record(x: 123)
+o = ''
+r.Observer({|member| o = member })
+r.x = 123
+o`, `""`
+
+`v = #(123)
+r = Record(x: v)
+o = ''
+r.Observer({|member| o = member })
+r.x = v
+o`, `""`
+
+// gSuneido only behavior
+// `r = Record(x: Object(123))
+// o = ''
+// r.Observer({|member| o = member })
+// r.x = Object(123)
+// o`, `"x"`
+
 @execute // rules
 
 // _lower! with no value
