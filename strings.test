@@ -1,22 +1,14 @@
-@execute // strings
+@execute // string.Split
 
 `"hello".Split('')` throws `must not be empty`
-
 `"one,two,three".Split(',')`, `#(one,two,three)`
-
 `"".Split(',')`, `#()`
-
 `"one".Split(',')`, `#(one)`
-
 `"one,".Split(',')`, `#(one)`
-
 `",one".Split(',')`, `#("",one)`
-
 `"one=>two=>three".Split('=>')`, `#(one,two,three)`
 
-@method
-
-// string.FindLast
+@method // string.FindLast
 
 // without position
 "this is a test"	FindLast	""		14
@@ -45,9 +37,35 @@
 "this is a test"	FindLast	"xyz"	-9	false
 "this is a test"	FindLast	"xyz"	0	false
 
-@execute
+@method // string.Entab/Detab
 
-// string.Match
+""							Entab	""
+"foo"						Entab	"foo"
+"foo bar"					Entab	"foo bar"
+"    foo" 					Entab	"\tfoo"
+"  \tfoo"					Entab	"\tfoo"
+" \t foo"					Entab	"\t foo"
+" \t foo  \t  "				Entab	"\t foo"
+"foo\tbar"					Entab	"foo\tbar"
+"    foo\r\n    bar\r\n"	Entab	"\tfoo\r\n\tbar\r\n"
+"foo\t\nbar"				Entab	"foo\nbar"
+"foo\t\r\nbar"				Entab	"foo\r\nbar"
+"\t"						Entab	""
+"\t\n"						Entab	"\n"
+"\t\r\n"					Entab	"\r\n"
+
+""					Detab	""
+"foo bar"			Detab	"foo bar"
+"  foo"				Detab	"  foo"
+"\tfoo"				Detab	"    foo"
+"  \tfoo"			Detab	"    foo"
+"\t\tfoo"			Detab	"        foo"
+" \t \tfoo"			Detab	"        foo"
+"x\ty"				Detab	"x   y"
+"\tfoo\n\tbar"		Detab	"    foo\n    bar"
+"\tfoo\r\n\tbar"	Detab	"    foo\r\n    bar"
+
+@execute // string.Match
 
 `"now is the time".Match("foo")`			false
 `"now is the time".Match("now")`			"#(#(0,3))"
@@ -67,7 +85,7 @@
 
 `"now is the time".Match("(\w+) (\w+) (\w+)")`	"#((0,10),(0,3),(4,2),(7,3))"
 
-// string.Extract
+@execute // string.Extract
 
 `"hello world".Extract(".....$")`, `"world"`
 `"hello world".Extract("w(..)ld")`, `"or"`
@@ -76,29 +94,24 @@
 `"hello world".Extract("(\w+) (\w+)", 1)`, `"hello"`
 `"hello world".Extract("(\w+) (\w+)", 2)`, `"world"`
 
-// string.Eval
+@execute // string.Eval
 
 `"123".Eval()`, 123
-
 `Def("X", 123); "X".Eval()`, 123
-
 `"123 + 456".Eval()`, 579
-
 `"return".Eval()`, `""`
-
 `"123 + 456".Eval2()`, `#(579)`
-
 `"return".Eval2()`, `#()`
 
-// calling a string
-`#Upper("abc")`, `"ABC"`
-`#Upper(@#(abc))`, `"ABC"`
-`#Upper(@+1#(abc,def))`, `"DEF"`
-
-// Asc, Chr, binary data
+@execute // string.Asc/Chr
 `"\x00".Asc()`, `0`
 `"a".Asc()`, `97`
 `"\xff".Asc()`, `255`
 `0.Chr()`, `"\x00"`
 `97.Chr()`, `"a"`
 `255.Chr()`, `"\xff"`
+
+@execute // calling a string
+`#Upper("abc")`, `"ABC"`
+`#Upper(@#(abc))`, `"ABC"`
+`#Upper(@+1#(abc,def))`, `"DEF"`
