@@ -220,6 +220,9 @@
 "hello world", `(a...b)|(h...o)`, "hello", "", "hello"
 "-ccc-", `(aaa)|(bbb)|(ccc)`, "ccc", "", "", "ccc"
 
+"\r\n", "^\n", false
+"xyz\r\n\r\nxyz", "^[^x].*$", false
+
 @regex_replace
 
 "now is the time"	"now"	"never"		"never is the time"
