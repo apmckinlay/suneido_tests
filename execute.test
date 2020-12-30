@@ -433,6 +433,7 @@ throw "after"` throws "after"
 `Def('Q', 'class {
 	Next() { .i < 4 ? .i++ : this }
 	Dup() { new (.Base()) }
+	Infinite?() { false }
 	i: 0 }'); true`
 
 `Sequence(Q())`, `#(0,1,2,3)`
@@ -463,7 +464,7 @@ ob`, `#(0,1,2,3)`
 `Def('Qi', 'class {
 	Next() { .i++ }
 	Dup() { new (.Base()) }
-	Infinite?() { true}
+	Infinite?() { true }
 	i: 0 }'); true`
 
 `q = Sequence(Qi()); q.Infinite?()`, true
