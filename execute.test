@@ -456,8 +456,9 @@ q.Iter().Next(); q.Iter().Next(); q.Instantiated?()`, true
 
 `q = Sequence(Q()); q.Join(','); q.Instantiated?()`, false
 
-`ob = Object(); for x in Sequence(Q())
-ob.Add(x)
+`ob = Object()
+for x in Sequence(Q())
+	ob.Add(x)
 ob`, `#(0,1,2,3)`
 
 // infinite sequence
