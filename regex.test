@@ -203,6 +203,11 @@
 "abc", "(?i)ABC"
 "abc", "(?i)abc"
 "abc", "(?i)ark", false
+"b", "(?i)[abc]"
+"b", "(?i)[ABC]"
+"B", "(?i)[abc]"
+"B", "(?i)[ABC]"
+"@", "(?i)[@#]"
 
 "axb", "[\x00-\xff]+", "axb"
 
