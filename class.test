@@ -119,11 +119,11 @@ x = c()
 x.F() is 123`
 
 `// instance equality is value()
-c = class { }
+c = class { UseDeepEquals: true }
 new c is new c`
 
 `// default CallClass is new()
-c = class { }
+c = class { UseDeepEquals: true }
 c() is new c`
 
 `// instances are modifiable()
