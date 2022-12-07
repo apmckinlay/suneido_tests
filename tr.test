@@ -26,3 +26,6 @@
 
 // collapse at end
 "hello \t\n\n", " \t\n", "\n", "hello\n"
+
+"abc", "^\t\r\n\20-\xff", "", "abc"
+"a\x00b\x1fc\xffd", "^\t\r\n\x20-\xff", "", "abc\xffd"
