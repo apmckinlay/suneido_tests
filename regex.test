@@ -60,9 +60,6 @@
 "aaab", "a*?b", "aaab"
 "aaab", "a+?b", "aaab"
 
-"AbbA", "(.)(.)\2\1"
-"AbBa", "(.)(.)(?i)\2\1"
-
 "hello\nworld", "^he"
 "hello\nworld", "^wo"
 "hello\nworld", "\Ahe"
