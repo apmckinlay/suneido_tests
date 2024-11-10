@@ -1,6 +1,6 @@
 @execute // string.Split
 
-`"hello".Split('')` throws `must not be empty`
+`"hello".Split()` `#(h, e, l, l, o)`
 `"one,two,three".Split(',')`, `#(one,two,three)`
 `"".Split(',')`, `#()`
 `"one".Split(',')`, `#(one)`
