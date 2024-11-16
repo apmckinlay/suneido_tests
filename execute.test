@@ -172,9 +172,9 @@ default: return 1
 "x = 0xff; x & '1'" throws "can't convert String to integer"
 "x = 4.8; x % 2" throws "can't convert number to integer"
 
-"s = 'hello'; s[1.2]" throws "indexes must be integers"
-"s = 'hello'; s['']" throws "indexes must be integers"
-"s = 'hello'; s[false]" throws "indexes must be integers"
+"s = 'hello'; s[1.2]" throws "uninitialized member"
+"s = 'hello'; s['']" throws "uninitialized member"
+"s = 'hello'; s[false]" throws "uninitialized member"
 "s = 'hello'; s['' ..]" throws "indexes must be integers"
 "s = 'hello'; s[false ..]" throws "indexes must be integers"
 "s = 'hello'; s['' ::]" throws "indexes must be integers"
